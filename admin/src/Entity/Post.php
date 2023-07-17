@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -22,8 +22,8 @@ class Post
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $state = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $state = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
@@ -80,12 +80,12 @@ class Post
         return $this;
     }
 
-    public function getState(): ?string
+    public function getState(): ?int
     {
         return $this->state;
     }
 
-    public function setState(?string $state): static
+    public function setState(?int $state = null): static
     {
         $this->state = $state;
 

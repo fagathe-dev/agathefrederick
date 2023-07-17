@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ContactRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ContactRepository;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -26,8 +26,8 @@ class Contact
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $state = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $state = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
@@ -91,12 +91,12 @@ class Contact
         return $this;
     }
 
-    public function getState(): ?string
+    public function getState(): ?int
     {
         return $this->state;
     }
 
-    public function setState(string $state): static
+    public function setState(?int $state = null): static
     {
         $this->state = $state;
 

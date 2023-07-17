@@ -25,8 +25,8 @@ class Project
     #[ORM\Column(length: 120, nullable: true)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $state = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $state = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
@@ -92,12 +92,12 @@ class Project
         return $this;
     }
 
-    public function getState(): ?string
+    public function getState(): ?int
     {
         return $this->state;
     }
 
-    public function setState(string $state): static
+    public function setState(?int $state = null): static
     {
         $this->state = $state;
 
