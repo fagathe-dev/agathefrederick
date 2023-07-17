@@ -3,8 +3,9 @@ app_dir='/Users/fagathe/workspace/perso/agathefrederick.fr/admin'
 app_host='dev.admin.agathefrederick.fr'
 port='5500'
 db_driver='mysql'
-# enregistrer le nouveau nom de domaine dans le host de la machine
-echo "127.0.0.1\t${app_host}" | sudo tee -a /etc/hosts
+# enregistrer le nouveau nom de domaine dans le host de la machine 
+# >> Uncomment line bellow on mac 
+# echo "127.0.0.1\t${app_host}" | sudo tee -a /etc/hosts
 
 # lance le service mysql
 brew services start $db_driver
