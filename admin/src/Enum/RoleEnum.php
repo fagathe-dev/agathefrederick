@@ -18,11 +18,11 @@ final class RoleEnum implements EnumInterface
     public static function cases(): array
     {
         return [
-            self::ROLE_ADMIN => 'Administrateur',
-            self::ROLE_BLOG_USER => 'Utilisateur Blog',
-            self::ROLE_MANAGER => 'Manageur',
-            self::ROLE_EDITOR => 'Éditeur',
-            self::ROLE_USER => 'Utilisateur',
+            self::ROLE_ADMIN,
+            self::ROLE_BLOG_USER,
+            self::ROLE_MANAGER,
+            self::ROLE_EDITOR,
+            self::ROLE_USER,
         ];
     }
 

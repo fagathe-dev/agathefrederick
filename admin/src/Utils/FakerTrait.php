@@ -8,6 +8,10 @@ use Faker\Generator;
 trait FakerTrait
 {
 
+    public function __construct()
+    {
+    }
+
     /**
      * Get random items of an array
      *
@@ -37,7 +41,7 @@ trait FakerTrait
      */
     public function randomElement(array $array): mixed
     {
-        if (count($array) > 0) {
+        if (count($array) > 1) {
             $count = count($array) - 1;
 
             $element = count($array) > 1 ? $array[random_int(0, $count)] : $array[0];
@@ -46,10 +50,6 @@ trait FakerTrait
         }
 
         return $array[0];
-    }
-
-    public function __construct()
-    {
     }
 
     /**

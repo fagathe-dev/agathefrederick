@@ -3,7 +3,7 @@ namespace App\Enum;
 
 use App\Enum\EnumInterface;
 
-final class Color implements EnumInterface
+final class ColorEnum implements EnumInterface
 {
 
     public const PRIMARY = 'primary';

@@ -1,7 +1,7 @@
 <?php
 namespace App\Utils\Data;
 
-use App\Utils\Enum\Colors;
+use App\Enum\ColorEnum;
 
 final class FileTypeData
 {
@@ -12,7 +12,7 @@ final class FileTypeData
      *
      * @return array
      */
-    public static function getFileTypes(): array
+    public static function data(): array
     {
         return [
             [
@@ -23,7 +23,7 @@ final class FileTypeData
                     'xls',
                     'xlsx',
                 ],
-                'color' => Colors::SUCCESS
+                'color' => ColorEnum::SUCCESS
             ],
             [
                 'name' => 'Texte',
@@ -34,7 +34,7 @@ final class FileTypeData
                     'docx',
                     'txt',
                 ],
-                'color' => Colors::SECONDARY,
+                'color' => ColorEnum::SECONDARY,
             ],
             [
                 'name' => 'Code',
@@ -60,7 +60,7 @@ final class FileTypeData
                     'htaccess',
                     'conf',
                 ],
-                'color' => Colors::INFO,
+                'color' => ColorEnum::INFO,
             ],
             [
                 'name' => 'Images',
@@ -72,7 +72,7 @@ final class FileTypeData
                     'png',
                     'svg',
                 ],
-                'color' => Colors::SUCCESS,
+                'color' => ColorEnum::SUCCESS,
             ],
             [
                 'name' => 'Pdf',
@@ -80,13 +80,13 @@ final class FileTypeData
                 'extensions' => [
                     'pdf',
                 ],
-                'color' => Colors::DANGER,
+                'color' => ColorEnum::DANGER,
             ],
             [
                 'name' => 'Zip',
                 'icon' => 'ri-file-zip-fill',
                 'extensions' => ['zip'],
-                'color' => Colors::WARNING,
+                'color' => ColorEnum::WARNING,
             ],
             [
                 'name' => 'Présentation',
@@ -96,7 +96,7 @@ final class FileTypeData
                     'ppt',
                     'pptx',
                 ],
-                'color' => Colors::DANGER,
+                'color' => ColorEnum::DANGER,
             ],
         ];
     }
