@@ -103,6 +103,16 @@ trait FakerTrait
         return $originalDateTime->modify('+' . random_int(0, $days) . ' days');
     }
 
+    public function surround(array $text = [], string $tag = 'p'): string
+    {
+        $str = '';
+        foreach ($text as $p) {
+            $str .= "<{$tag}>{$p}</{$tag}>";
+        }
+
+        return $str;
+    }
+
     public function getFakerFactory(): Generator
     {
         return Factory::create('fr_FR');
