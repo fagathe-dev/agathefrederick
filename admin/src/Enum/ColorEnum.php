@@ -1,7 +1,9 @@
 <?php
-namespace App\Utils\Enum;
+namespace App\Enum;
 
-final class Colors
+use App\Enum\EnumInterface;
+
+final class Color implements EnumInterface
 {
 
     public const PRIMARY = 'primary';
@@ -16,7 +18,7 @@ final class Colors
     /**
      * @return array
      */
-    public static function colors(): array
+    public static function cases(): array
     {
         return [
             self::PRIMARY,
@@ -31,12 +33,12 @@ final class Colors
     }
 
     /**
-     * @param  mixed $color
+     * @param  mixed $value
      * @return string
      */
-    public static function match(string $color = self::PRIMARY): string
+    public static function match(string|int $value = self::PRIMARY): string
     {
-        return match ($color) {
+        return match ($value) {
             self::WARNING => '#ffbe0b',
             self::INFO => '#299cdb',
             self::SECONDARY => '#3577f1',
