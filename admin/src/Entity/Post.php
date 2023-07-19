@@ -43,8 +43,11 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     private ?Category $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, cascade: ['persist', 'remove'])]
     private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    private ?User $author = null;
 
     public function __construct()
     {
@@ -190,6 +193,18 @@ class Post
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

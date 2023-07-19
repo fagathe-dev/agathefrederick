@@ -13,23 +13,23 @@ class Content
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $label = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $value = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $order = null;
+
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\Column(nullable: true)]
     private ?bool $isOk = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $type = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $toolTip = null;
+
+    #[ORM\ManyToOne(inversedBy: 'contents')]
+    private ?ContentType $type = null;
 
     public function getId(): ?int
     {
@@ -41,7 +41,7 @@ class Content
         return $this->label;
     }
 
-    public function setLabel(?string $label): static
+    public function setLabel(string $label): static
     {
         $this->label = $label;
 
@@ -60,26 +60,14 @@ class Content
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getOrder(): ?int
     {
-        return $this->createdAt;
+        return $this->order;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setOrder(?int $order): static
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
+        $this->order = $order;
 
         return $this;
     }
@@ -96,12 +84,24 @@ class Content
         return $this;
     }
 
-    public function getType(): ?string
+    public function getToolTip(): ?string
+    {
+        return $this->toolTip;
+    }
+
+    public function setToolTip(?string $toolTip): static
+    {
+        $this->toolTip = $toolTip;
+
+        return $this;
+    }
+
+    public function getType(): ?ContentType
     {
         return $this->type;
     }
 
-    public function setType(string $type): static
+    public function setType(?ContentType $type): static
     {
         $this->type = $type;
 
