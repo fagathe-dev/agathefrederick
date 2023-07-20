@@ -41,4 +41,18 @@ final class RoleEnum implements EnumInterface
         };
     }
 
+    /**
+     * @return array
+     */
+    public static function choices(): array
+    {
+        return [
+            'Administrateur' => self::ROLE_ADMIN,
+            'Utilisateur Blog' => self::ROLE_BLOG_USER,
+            'Éditeur' => self::ROLE_EDITOR,
+            'Manageur' => self::ROLE_MANAGER,
+            'Utilisateur' => self::ROLE_USER,
+        ];
+    }
+
 }

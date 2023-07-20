@@ -24,4 +24,14 @@ final class ContentEnum implements EnumInterface
             default => 'Bloc',
         };
     }
+
+    /**
+     * choices
+     *
+     * @return array
+     */
+    public static function choices(): array
+    {
+        return [];
+    }
 }

@@ -50,4 +50,14 @@ final class ColorEnum implements EnumInterface
         };
     }
 
+    /**
+     * choices
+     *
+     * @return array
+     */
+    public static function choices(): array
+    {
+        return [];
+    }
+
 }

@@ -2,14 +2,29 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Enum\RoleEnum;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[
+    UniqueEntity(
+    fields: ['email'],
+    errorPath: 'email',
+    message: 'Cette adresse email est déjà utilisée !'
+),
+    UniqueEntity(
+    fields: ['username'],
+    errorPath: 'username',
+    message: 'Ce nom d\'utilisateur est déjà utilisé !'
+)
+]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,6 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'Ce champ est obligatoire !')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -27,6 +43,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Le mot de passe est obligatoire !')]
+    #[Assert\Regex(
+        pattern: '#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]){8,}#',
+        message: 'Le mot de passe doit contenir au moins une masjuscule, une minuscule et un chiffre avec au moins 8 caractères !', match: true
+    )]
     private ?string $password = null;
 
     #[ORM\Column]
@@ -37,8 +58,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 80, nullable: true)]
     private ?string $firstname = null;
+    #[Assert\NotBlank(message: 'Le prénom est obligatoire !', allowNull: true)]
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\NotBlank(message: 'Le nom de famille est obligatoire !', allowNull: true)]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -57,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $comments;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: 'Le nom d\'utilisateur est obligatoire !', allowNull: true)]
     private ?string $username = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
