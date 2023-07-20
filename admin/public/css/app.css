@@ -65,3 +65,7 @@ html {
   font-weight: 600;
   font-size: inherit;
 }
+
+[data-href]:hover {
+  cursor: pointer;
+}

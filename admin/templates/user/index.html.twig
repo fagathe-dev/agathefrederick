@@ -1,1 +1,53 @@
 {% extends "base.html.twig" %}
+
+{% block body %}
+  <h1 class="h3 d-flex justify-content-between">
+    Liste des utilisateurs
+    <a href="{{ path('app_user_add') }}" class="btn btn-sm btn-success">Ajouter</a>
+  </h1>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Fullname</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in paginatedUsers %}
+        {% set fullname = 'N/A' %}
+        {% if user.firstname != null and user.lastname != null  %}
+          {% set fullname = user.firstname|capitalize ~ ' ' ~ user.lastname|upper %}
+        {% endif %}
+        <tr>
+          <th scope="row">{{ user.id }}</th>
+          <td data-href="{{ path('app_user_edit', {id: user.id}) }}">{{ fullname }}</td>
+          <td data-href="{{ path('app_user_edit', {id: user.id}) }}">{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.roles|join(', ') }}</td>
+          <td>
+            <a href="{{ path('app_user_edit', {id: user.id}) }}" class="btn btn-warning btn-sm">
+              <i class="bi bi-pencil-square"></i>
+            </a>
+            <a href="{{ path('app_user_edit', {id: user.id}) }}" class="btn btn-danger btn-sm">
+              <i class="bi bi-trash"></i>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between">
+    <div class="result-infos">
+      <span class="fw-bold">{{ paginatedUsers.items|length }}</span>
+      sur 
+      {{ paginatedUsers.getTotalItemCount }}
+    </div>
+    <div class="pagination-wrap hstack">
+      {{ knp_pagination_render(paginatedUsers) }}
+    </div>
+  </div>
+{% endblock %}

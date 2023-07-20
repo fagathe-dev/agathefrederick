@@ -4,6 +4,7 @@ namespace App\Utils;
 use stdClass;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\ConstraintViolationList;
 
 /**
@@ -11,7 +12,6 @@ use Symfony\Component\Validator\ConstraintViolationList;
  */
 trait ServiceTrait
 {
-
     /**
      * @param string $string
      * @param string $charset='utf-8'
@@ -171,6 +171,11 @@ trait ServiceTrait
         }
 
         return $errors;
+    }
+
+    public function addFlash(?string $message = '', ?string $type = 'info'):void {
+        $session = new Session;
+        $session->getFlashBag()->add($type, $message);
     }
 
 }

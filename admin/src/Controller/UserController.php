@@ -21,13 +21,9 @@ final class UserController extends AbstractController
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $breadcrumb = new Breadcrumb([
-            new BreadcrumbItem('Liste des utilisateurs'),
-        ]);
-
-        return $this->render('user/index.html.twig', compact('breadcrumb'));
+        return $this->render('user/index.html.twig', $this->service->index($request));
     }
 
     #[Route('/add', name: 'add', methods: ['GET', 'POST'])]
@@ -49,6 +45,13 @@ final class UserController extends AbstractController
         }
 
         return $this->render('user/add.html.twig', compact('user', 'form', 'breadcrumb'));
+    }
+
+    #[Route('/{id}', name: 'edit', methods: ['GET'], requirements: ['id' => '\d+'])]
+    public function edit(User $user): Response
+    {
+
+        return $this->render('user/edit.html.twig');
     }
 
 }
