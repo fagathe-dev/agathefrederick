@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[
@@ -35,9 +36,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message: 'Ce champ est obligatoire !')]
     #[Assert\Email(message: 'Cette adresse e-mail n\'est pas valide !')]
+    #[Groups(['user_show'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user_show'])]
     private array $roles = [];
 
     /**
@@ -58,11 +61,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 80, nullable: true)]
-    private ?string $firstname = null;
+    #[Groups(['user_show'])]
     #[Assert\NotBlank(message: 'Le prénom est obligatoire !', allowNull: true)]
+    private ?string $firstname = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     #[Assert\NotBlank(message: 'Le nom de famille est obligatoire !', allowNull: true)]
+    #[Groups(['user_show'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -82,6 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank(message: 'Le nom d\'utilisateur est obligatoire !', allowNull: true)]
+    #[Groups(['user_show'])]
     private ?string $username = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]

@@ -29,12 +29,16 @@
           <td data-href="{{ path('app_user_edit', {id: user.id}) }}">{{ user.email }}</td>
           <td>{{ user.roles|join(', ') }}</td>
           <td>
-            <a href="{{ path('app_user_edit', {id: user.id}) }}" class="btn btn-warning btn-sm">
-              <i class="bi bi-pencil-square"></i>
-            </a>
-            <a onclick="event.preventDefault()" href="{{ path('app_user_edit', {id: user.id}) }}" class="btn btn-danger btn-sm">
-              <i class="bi bi-trash"></i>
-            </a>
+            <a 
+              href="{{ path('app_user_edit', {id: user.id}) }}" 
+              class="btn btn-warning btn-sm"
+            ><i class="bi bi-pencil-square"></i></a>
+            <a 
+              onclick="event.preventDefault()" 
+              href="{{ path('app_user_delete', {id: user.id}) }}" 
+              class="btn btn-danger btn-sm"
+              data-user-delete
+            ><i class="bi bi-trash"></i></a>
           </td>
         </tr>
       {% endfor %}

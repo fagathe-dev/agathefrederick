@@ -9,6 +9,7 @@ use App\Form\User\CreateType;
 use App\Breadcrumb\BreadcrumbItem;
 use App\Form\User\EmailUpdateType;
 use App\Form\User\ChangePasswordType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,17 @@ final class UserController extends AbstractController
     public function __construct(
         private UserService $service
     ) {
+    }
+
+    #[Route('/api', name: 'api_get_users', methods: ['GET'])]
+    public function getApiUsers(Request $request): JsonResponse
+    {
+        return $this->json(
+            $this->service->getUsers($request),
+            context: [
+                'groups' => ['user_show']
+            ],
+        );
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
@@ -48,6 +60,14 @@ final class UserController extends AbstractController
         }
 
         return $this->render('user/add.html.twig', compact('user', 'form', 'breadcrumb'));
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
+    public function delete(User $user): JsonResponse
+    {
+        $response = $this->service->delete($user);
+
+        return $this->json($response->data, $response->status);
     }
 
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]

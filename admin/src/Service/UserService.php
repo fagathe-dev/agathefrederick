@@ -28,7 +28,7 @@ final class UserService
         private PaginatorInterface $paginator,
     ) {
     }
-    
+
     /**
      * @param  mixed $request
      * @return PaginationInterface
@@ -41,8 +41,10 @@ final class UserService
         $nbItems = $request->query->getInt('nbItems', 15);
 
         return $this->paginator->paginate(
-            $data, /* query NOT result */
-            $page, /*page number*/
+            $data,
+            /* query NOT result */
+            $page,
+            /*page number*/
             $nbItems, /*limit per page*/
         );
     }
@@ -112,6 +114,26 @@ final class UserService
             # TODO: créer un système pour logger les exceptions
             sprintf($th->getMessage());
             return false;
+        }
+    }
+
+    /**
+     * @param  mixed $user
+     * @return object
+     */
+    public function delete($user): object
+    {
+        try {
+            $this->manager->remove($user);
+            $this->manager->flush();
+            return $this->sendNoContent();
+        } catch (\Throwable $th) {
+            # TODO: créer un système pour logger les exceptions
+            sprintf($th->getMessage());
+            return $this->sendJson([
+                'message' => 'Une erreur est survenue lors de la suppression de l\'utilisateur !',
+                'type' => 'danger',
+            ]);
         }
     }
 
