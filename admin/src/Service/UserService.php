@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -27,10 +28,26 @@ final class UserService
         private PaginatorInterface $paginator,
     ) {
     }
+    
+    /**
+     * @param  mixed $request
+     * @return PaginationInterface
+     */
+    public function getUsers(Request $request): PaginationInterface
+    {
+
+        $data = $this->repository->findAll(); #findUsersAdmin();
+        $page = $request->query->getInt('page', 1);
+        $nbItems = $request->query->getInt('nbItems', 15);
+
+        return $this->paginator->paginate(
+            $data, /* query NOT result */
+            $page, /*page number*/
+            $nbItems, /*limit per page*/
+        );
+    }
 
     /**
-     * index
-     *
      * @param  Request $request
      * @return array
      */
@@ -40,13 +57,7 @@ final class UserService
             new BreadcrumbItem('Liste des utilisateurs'),
         ]);
 
-        $data = $this->repository->findAll(); #findUsersAdmin();
-
-        $paginatedUsers = $this->paginator->paginate(
-            $data, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            $request->query->getInt('nbItems', 15) /*limit per page*/
-        );
+        $paginatedUsers = $this->getUsers($request);
 
         return compact('paginatedUsers', 'breadcrumb');
     }
@@ -67,6 +78,24 @@ final class UserService
         } else {
             $this->addFlash('Une erreur lors de la créattion de cet utilisateur !', 'danger');
         }
+    }
+
+    public function update(User $user): void
+    {
+        $user->setUpdatedAt($this->now());
+
+        if ($this->save($user)) {
+            $this->addFlash('Utilisateur modifié avec succès 🚀');
+        } else {
+            $this->addFlash('Une erreur lors de la créattion de cet utilisateur !', 'danger');
+        }
+    }
+
+    public function updatePassword(User $user): void
+    {
+        $user->setPassword($this->hasher->hashPassword($user, $user->getPassword()));
+
+        $this->update($user);
     }
 
     /**

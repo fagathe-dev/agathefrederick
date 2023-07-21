@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <h1 class="h3">{{ title }}</h1>
+  {% include "components/_form.html.twig" with {
+      form: formInfos, 
+      formTitle: 'Informations'
+    }
+  %}
+  {% include "components/_form.html.twig" with {
+      form: formEmail, 
+      formTitle: 'Changer d\'adresse e-mail'
+    }
+  %}
+  {% include "components/_form.html.twig" with {
+      form: formPassword, 
+      formTitle: 'Changer de mot de passe'
+    }
+  %}
+{% endblock %}

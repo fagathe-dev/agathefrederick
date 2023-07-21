@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class CreateUserType extends AbstractType
+class CreateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

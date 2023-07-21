@@ -1,5 +1,7 @@
-{% if formTitle is defined %}
-  <h1 class="h3">{{ formTitle }}</h1>
-{% endif %}
+<div>
+  {% if formTitle is defined %}
+    <h3 class="h5">{{ formTitle }}</h3>
+  {% endif %}
 
-{{ form(form) }}
+  {{ form(form) }}
+</div>
