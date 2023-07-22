@@ -1,4 +1,12 @@
-const dataHref = document.querySelectorAll("[data-href]");
+const $ = (selector) => {
+  const elements = Array.from(document.querySelectorAll(selector));
+  if (elements.lenght === 0) {
+    return undefined;
+  }
+  return elements.length === 1 ? elements[0] : elements;
+};
+
+const dataHref = $("[data-href]");
 
 if (dataHref) {
   dataHref.forEach((a) => {
@@ -9,15 +17,15 @@ if (dataHref) {
   });
 }
 
-const deleteUserButton = document.querySelectorAll("[data-user-delete]");
+const deleteUserButton = $("[data-user-delete]");
 
 if (deleteUserButton) {
-  deleteUserButton.forEach((u) => {
-    u.addEventListener("click", (event) => {
+  deleteUserButton.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
       const button =
         event.target.tagName === "I" ? event.target.closest("a") : event.target;
       const url = button.href;
-      const form = document.querySelector('[name="deleteUserForm"]');
+      const form = $('[name="deleteUserForm"]');
       form.action = url;
     });
   });
@@ -30,9 +38,8 @@ const deleteUser = (e) => {
   const currentLocation = window.location.href;
 
   // try {
-    
+
   // } catch (error) {
   //   toaster
   // }
-  
 };

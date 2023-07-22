@@ -1,0 +1,29 @@
+.scrollTop {
+  height: 40px;
+  width: 40px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  color: var(--bs-white);
+  background-color: rgba(72, 91, 154, 0.8);
+  border-radius: 50px;
+  transition: all 0.4s ease-in-out;
+  z-index: 999;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  justify-content: center;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-size: 30px;
+  opacity: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrollTop:hover {
+  cursor: pointer;
+  background-color: #485b9a;
+}
+.container p {
+  margin-bottom: 20px;
+}
