@@ -14,4 +14,11 @@ interface EnumInterface
      * @return array
      */
     public static function cases(): array;
+    
+    /**
+     * choices
+     *
+     * @return array
+     */
+    public static function choices(): array;
 }

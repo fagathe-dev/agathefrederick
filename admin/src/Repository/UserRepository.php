@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -21,8 +22,10 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private Security $security
+    ) {
         parent::__construct($registry, User::class);
     }
 
@@ -40,7 +43,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-//    /**
+    public function findUsersAdmin(): array|null
+    {
+        $user = $this->security->getUser();
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id <> :id')
+            ->setParameter('id', $user instanceof User ? $user->getId() : null)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    //    /**
 //     * @return User[] Returns an array of User objects
 //     */
 //    public function findByExampleField($value): array
@@ -55,7 +70,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?User
+    //    public function findOneBySomeField($value): ?User
 //    {
 //        return $this->createQueryBuilder('u')
 //            ->andWhere('u.exampleField = :val')

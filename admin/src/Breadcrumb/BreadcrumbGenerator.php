@@ -7,10 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 class BreadcrumbGenerator
 {
 
-    /**
-     * @var Request $request
-     */
-    private $request;
+    private ?Request $request = null;
 
     public function __construct(
         private ?Breadcrumb $breadcrumb = null

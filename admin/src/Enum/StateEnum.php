@@ -59,4 +59,15 @@ final class StateEnum implements EnumInterface
         };
     }
 
+
+    /**
+     * choices
+     *
+     * @return array
+     */
+    public static function choices(): array
+    {
+        return [];
+    }
+
 }
