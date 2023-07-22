@@ -69,3 +69,30 @@ html {
 [data-href]:hover {
   cursor: pointer;
 }
+
+.modal-header,
+.modal-footer,
+.modal-body {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#deleteUserModal .btn-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.modal-body {
+  padding-bottom: 10px;
+}
+
+.modal-footer {
+  border-top: none;
+  padding-top: 2px;
+}
+
+.modal-header {
+  padding-bottom: 2px;
+  border-bottom: none;
+}

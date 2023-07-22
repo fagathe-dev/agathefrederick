@@ -38,6 +38,8 @@
               href="{{ path('app_user_delete', {id: user.id}) }}" 
               class="btn btn-danger btn-sm"
               data-user-delete
+              data-bs-toggle="modal" 
+              data-bs-target="#deleteUserModal"
             ><i class="bi bi-trash"></i></a>
           </td>
         </tr>
@@ -54,4 +56,30 @@
       {{ knp_pagination_render(paginatedUsers) }}
     </div>
   </div>
+
+  <div class="modal" tabindex="-1" id="deleteUserModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <i class="bi bi-trash text-danger" style="font-size: 40px;"></i>
+          <p class="text-danger mb-0">
+            Etes-vous sûr de supprimer cet utilisateur ? <br/>
+            Si vous supprimez cet utilisateur, les données seront perdues définitivement.
+          </p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button 
+            type="button" 
+            class="btn btn-secondary btn-sm" 
+            data-bs-dismiss="modal" 
+            onclick="resetUserForm(event)"
+          >Annuler</button>
+          <form action="#" name="deleteUserForm" method="DELETE" onsubmit="deleteUser(event);">
+            <button type="submit" class="btn btn-danger btn-sm">Confirmer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>  
 {% endblock %}

@@ -10,7 +10,6 @@ if (dataHref) {
 }
 
 const deleteUserButton = document.querySelectorAll("[data-user-delete]");
-console.log({ deleteUserButton });
 
 if (deleteUserButton) {
   deleteUserButton.forEach((u) => {
@@ -18,9 +17,22 @@ if (deleteUserButton) {
       const button =
         event.target.tagName === "I" ? event.target.closest("a") : event.target;
       const url = button.href;
-  
-      
-      alert("User deleted !");
+      const form = document.querySelector('[name="deleteUserForm"]');
+      form.action = url;
     });
   });
 }
+
+const deleteUser = (e) => {
+  e.preventDefault();
+  const url = e.target.action;
+  const method = e.target.getAttribute("method");
+  const currentLocation = window.location.href;
+
+  // try {
+    
+  // } catch (error) {
+  //   toaster
+  // }
+  
+};
