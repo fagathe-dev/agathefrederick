@@ -16,30 +16,3 @@ if (dataHref) {
     );
   });
 }
-
-const deleteUserButton = $("[data-user-delete]");
-
-if (deleteUserButton) {
-  deleteUserButton.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      const button =
-        event.target.tagName === "I" ? event.target.closest("a") : event.target;
-      const url = button.href;
-      const form = $('[name="deleteUserForm"]');
-      form.action = url;
-    });
-  });
-}
-
-const deleteUser = (e) => {
-  e.preventDefault();
-  const url = e.target.action;
-  const method = e.target.getAttribute("method");
-  const currentLocation = window.location.href;
-
-  // try {
-
-  // } catch (error) {
-  //   toaster
-  // }
-};
