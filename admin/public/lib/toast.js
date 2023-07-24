@@ -4,7 +4,7 @@ const toast = (message = "", type = "danger", autohide = true) => {
             position: fixed!important;
             bottom: 20px;
             right: 20px;
-            z-index: 100;
+            z-index: 2000;
         "
     `;
   const toast = `
