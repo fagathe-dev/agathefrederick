@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Project;
-use App\Utils\States;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
